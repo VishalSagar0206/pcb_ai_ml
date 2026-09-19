@@ -1,0 +1,191 @@
+{
+  "$schema": "https://schemas.kicad.org/drc.v1.json",
+  "coordinate_units": "mm",
+  "kicad_version": "8.0.5 (fixture, not live)",
+  "source": "medium_board.kicad_pcb",
+  "violations": [
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation (netclass 'Default' clearance 0.2000mm; actual 0.0800mm) between R1 pad 1 and R2 pad 1",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Pad 1 of R1",
+          "pos": {
+            "x": 24.25,
+            "y": 30.0
+          },
+          "uuid": "r1-p1"
+        },
+        {
+          "description": "Pad 1 of R2",
+          "pos": {
+            "x": 24.53,
+            "y": 30.0
+          },
+          "uuid": "r2-p1"
+        }
+      ]
+    },
+    {
+      "type": "edge_clearance",
+      "severity": "error",
+      "description": "Copper-to-edge clearance violation (required 0.3000mm; actual 0.1200mm) on J1 pad 4",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Pad 4 of J1 on F.Cu",
+          "pos": {
+            "x": 91.0,
+            "y": 15.0
+          },
+          "uuid": "j1-p4"
+        }
+      ]
+    },
+    {
+      "type": "annular_width",
+      "severity": "warning",
+      "description": "Annular ring width violation (netclass 'Default' min annular width 0.1500mm; actual 0.0900mm)",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Via on net VOUT",
+          "pos": {
+            "x": 55.0,
+            "y": 15.0
+          },
+          "uuid": "via-1"
+        }
+      ]
+    },
+    {
+      "type": "courtyards_overlap",
+      "severity": "warning",
+      "description": "Courtyard overlap between footprints C3 and D1",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Courtyard of C3",
+          "pos": {
+            "x": 70.0,
+            "y": 40.0
+          },
+          "uuid": "c3-uuid"
+        },
+        {
+          "description": "Courtyard of D1",
+          "pos": {
+            "x": 70.6,
+            "y": 40.0
+          },
+          "uuid": "d1-uuid"
+        }
+      ]
+    },
+    {
+      "type": "diff_pair_gap_out_of_range",
+      "severity": "warning",
+      "description": "Differential pair gap out of range (required 0.1000-0.2000mm; actual 0.3500mm) on SPI_MOSI/SPI_MISO",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Track on net SPI_MOSI",
+          "pos": {
+            "x": 25.28,
+            "y": 32.0
+          },
+          "uuid": "r2-p1"
+        },
+        {
+          "description": "Track on net SPI_MISO",
+          "pos": {
+            "x": 40.0,
+            "y": 40.0
+          },
+          "uuid": "r3-p1"
+        }
+      ]
+    },
+    {
+      "type": "zones_intersect",
+      "severity": "error",
+      "description": "Zone clearance violation: GND pour and 3V3 pour overlap without sufficient clearance",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Zone (GND) on B.Cu",
+          "pos": {
+            "x": 65.0,
+            "y": 35.0
+          },
+          "uuid": "zone-gnd"
+        },
+        {
+          "description": "Zone (3V3) on B.Cu",
+          "pos": {
+            "x": 66.0,
+            "y": 36.0
+          },
+          "uuid": "zone-3v3"
+        }
+      ]
+    },
+    {
+      "type": "shorting_items",
+      "severity": "error",
+      "description": "Short circuit: net VCC and net GND are electrically connected via an unintended copper path near C1",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Pad 1 of C1 (net VCC)",
+          "pos": {
+            "x": 14.5,
+            "y": 20.0
+          },
+          "uuid": "c1-p1"
+        },
+        {
+          "description": "Pad 2 of C1 (net GND)",
+          "pos": {
+            "x": 15.5,
+            "y": 20.0
+          },
+          "uuid": "c1-p2"
+        }
+      ]
+    },
+    {
+      "type": "drill_out_of_range",
+      "severity": "error",
+      "description": "Drill size out of range (min 0.2000mm; actual 0.1500mm) on via at (55.0, 15.0)",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Via on net VOUT",
+          "pos": {
+            "x": 55.0,
+            "y": 15.0
+          },
+          "uuid": "via-1"
+        }
+      ]
+    }
+  ],
+  "unconnected_items": [
+    {
+      "description": "Unconnected items: net DATA2 pad has no completed route",
+      "items": [
+        {
+          "description": "Pad 4 of J1",
+          "pos": {
+            "x": 91.0,
+            "y": 15.0
+          },
+          "uuid": "j1-p4"
+        }
+      ]
+    }
+  ]
+}

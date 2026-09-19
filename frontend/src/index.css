@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  /* Deep circuit-board palette: dark slate/navy base, copper/teal accents */
+  --color-board-950: #050810;
+  --color-board-900: #0a0f1e;
+  --color-board-850: #0d1426;
+  --color-board-800: #111a30;
+  --color-board-700: #1a2540;
+  --color-board-600: #263454;
+  --color-board-500: #38507a;
+
+  --color-copper-400: #ffb27a;
+  --color-copper-500: #f3924a;
+  --color-copper-600: #d9722a;
+
+  --color-teal-glow: #35e6c3;
+  --color-cyan-glow: #4fd8ff;
+
+  --color-severity-critical: #ff3b5c;
+  --color-severity-high: #ff8a3d;
+  --color-severity-medium: #ffd23d;
+  --color-severity-low: #7cd6ff;
+  --color-severity-info: #9aa8c7;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(ellipse at top, #0d1426 0%, #050810 60%, #020306 100%);
+  background-attachment: fixed;
+  color: #e7ecf7;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  scrollbar-color: #5b76a8 rgba(255, 255, 255, 0.03);
+  scrollbar-width: auto;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+::-webkit-scrollbar-thumb {
+  background-color: #5b76a8;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #7f9bd6;
+  background-clip: padding-box;
+}
+
+.pcb-grid-bg {
+  background-image:
+    linear-gradient(rgba(53, 230, 195, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53, 230, 195, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.glass-panel {
+  background: rgba(13, 20, 38, 0.72);
+  border: 1px solid rgba(56, 80, 122, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.glow-teal {
+  box-shadow: 0 0 24px -6px rgba(53, 230, 195, 0.55);
+}
+
+.text-gradient-copper {
+  background: linear-gradient(90deg, #ffb27a, #ff8a3d, #ffd23d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.markdown-body h1, .markdown-body h2, .markdown-body h3 {
+  color: #ffb27a;
+  font-weight: 600;
+  margin-top: 1.4em;
+  margin-bottom: 0.5em;
+}
+.markdown-body p { margin: 0.6em 0; line-height: 1.6; color: #cbd5e8; }
+.markdown-body ul { margin: 0.4em 0 0.8em 1.2em; list-style: disc; color: #cbd5e8; }
+.markdown-body li { margin: 0.2em 0; }
+.markdown-body strong { color: #f5f7fb; }
+.markdown-body code { background: #111a30; padding: 1px 5px; border-radius: 4px; font-family: var(--font-mono); font-size: 0.85em; }

@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schemas.kicad.org/drc.v1.json",
+  "coordinate_units": "mm",
+  "date": "2025-01-01T00:00:00+0000",
+  "kicad_version": "8.0.5 (fixture, not live)",
+  "source": "sample_board.kicad_pcb",
+  "violations": [
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation (netclass 'Default' clearance 0.2000mm; actual 0.0900mm) between U3 pad 4 and R8 pad 1",
+      "excluded": false,
+      "items": [
+        {"description": "Pad 4 of U3 on F.Cu", "pos": {"x": 31.05, "y": 21.0}, "uuid": "u3-p4"},
+        {"description": "Pad 1 of R8 on F.Cu", "pos": {"x": 30.4, "y": 21.0}, "uuid": "r8-p1"}
+      ]
+    },
+    {
+      "type": "track_width",
+      "severity": "error",
+      "description": "Track width violation (netclass 'Default' min track width 0.1500mm; actual 0.1200mm)",
+      "excluded": false,
+      "items": [
+        {"description": "Track on F.Cu, net SPI_CLK", "pos": {"x": 31.05, "y": 19.0}, "uuid": "trk-clk-1"}
+      ]
+    },
+    {
+      "type": "silk_edge_clearance",
+      "severity": "warning",
+      "description": "Silkscreen clipped by board edge (clearance 0.1500mm; actual 0.0500mm)",
+      "excluded": false,
+      "items": [
+        {"description": "Fabrication text of U3", "pos": {"x": 30.0, "y": 17.0}, "uuid": "u3-uuid"}
+      ]
+    }
+  ],
+  "unconnected_items": [
+    {
+      "description": "Unconnected items: net SPI_MISO between R8 pad 2 and R9 pad 1",
+      "items": [
+        {"description": "Pad 2 of R8", "pos": {"x": 31.9, "y": 21.0}, "uuid": "r8-p2"},
+        {"description": "Pad 1 of R9", "pos": {"x": 44.25, "y": 30.0}, "uuid": "r9-p1"}
+      ]
+    }
+  ]
+}

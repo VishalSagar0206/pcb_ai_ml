@@ -1,0 +1,38 @@
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# --- Version control / editors ---
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# --- Frontend (built separately by frontend/Dockerfile) ---
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# --- Secrets / local env ---
+.env
+.env.local
+*.env.local
+
+# --- Generated/runtime output (mounted as a volume instead) ---
+results/*
+!results/.gitkeep
+data/pcb_uploads/*
+!data/pcb_uploads/.gitkeep
+
+# --- Docs (not needed inside the image except README.md for the build) ---
+*.md
+!README.md

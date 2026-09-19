@@ -1,0 +1,18 @@
+Model,Question,Category,Actual_Response,Predicted_Response
+claude-sonnet-4.6,Q1,spice_behaviour,NO,NO
+claude-sonnet-4.6,Q2,theory_layout,YES,YES
+claude-sonnet-4.6,Q3,component_datasheet,YES,YES
+claude-sonnet-4.6,Q4,theory_layout,YES,YES
+claude-sonnet-4.6,Q5,spice_behaviour,YES,NO
+claude-sonnet-4.6,Q6,theory_layout,YES,NO
+claude-sonnet-4.6,Q7,theory_layout,NO,NO
+claude-sonnet-4.6,Q8,spice_behaviour,NO,NO
+claude-sonnet-4.6,Q9,component_datasheet,YES,YES
+claude-sonnet-4.6,Q10,theory_layout,YES,YES
+claude-sonnet-4.6,Q11,spice_behaviour,YES,NO
+claude-sonnet-4.6,Q12,theory_layout,YES,YES
+claude-sonnet-4.6,Q13,component_datasheet,YES,YES
+claude-sonnet-4.6,Q14,theory_layout,NO,NO
+claude-sonnet-4.6,Q15,spice_behaviour,NO,NO
+Accuracy,Precision,Recall,F1 Score
+0.8,0.8125,0.85,0.7963800904977376

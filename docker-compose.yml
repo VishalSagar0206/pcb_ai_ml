@@ -1,0 +1,57 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      # Defaults to the offline MockLLMProvider so `docker compose up` works
+      # out of the box with zero configuration. Create a `.env` file (copy
+      # from `.env.example`) at the repo root with real
+      # CAF_MODEL_PROVIDER/CAF_MODEL_BASE_URL/CAF_MODEL_API_KEY values to get
+      # real LLM diagnosis instead -- docker compose automatically reads a
+      # `.env` file next to this compose file for the ${VAR:-default}
+      # substitutions below.
+      CAF_MODEL_PROVIDER: ${CAF_MODEL_PROVIDER:-mock}
+      CAF_MODEL_BASE_URL: ${CAF_MODEL_BASE_URL:-}
+      CAF_MODEL_API_KEY: ${CAF_MODEL_API_KEY:-}
+      CAF_MODEL_ANALYSIS: ${CAF_MODEL_ANALYSIS:-nemotron3-super-120b}
+      CAF_MODEL_GENERAL: ${CAF_MODEL_GENERAL:-nemotron3-super-120b}
+      CAF_MODEL_FAST: ${CAF_MODEL_FAST:-fast-classify}
+      # Alternative provider: set CAF_MODEL_PROVIDER=gemini above (in your
+      # root .env) plus GEMINI_API_KEY (free key at
+      # https://aistudio.google.com/apikey) to test with Gemini instead --
+      # the CAF_MODEL_* values above are left untouched either way, see
+      # DEVELOPMENT.md "Testing with a Gemini API key instead".
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-}
+      GEMINI_BASE_URL: ${GEMINI_BASE_URL:-}
+      LLM_TEMPERATURE: ${LLM_TEMPERATURE:-0.0}
+      LLM_MAX_TOKENS: ${LLM_MAX_TOKENS:-4096}
+      LLM_REQUEST_TIMEOUT_S: ${LLM_REQUEST_TIMEOUT_S:-180}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      # The frontend container is same-origin via nginx's /api proxy, so
+      # this is only needed if you call the backend directly from a
+      # browser on a different origin during development.
+      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS:-http://localhost:8080,http://127.0.0.1:8080}
+    volumes:
+      # Persist evaluation output and user-uploaded boards across restarts.
+      - ./results:/app/results
+      - ./data/pcb_uploads:/app/data/pcb_uploads
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy

@@ -1,0 +1,30 @@
+--- page 1 ---
+MCU_XYZ Microcontroller Datasheet (Sample/Synthetic, for testing only)
+
+## General Description
+
+MCU_XYZ is a 32-bit microcontroller in a QFN-32 5x5mm package, used here
+as component U3. It provides an SPI peripheral with a maximum clock rate
+of 50 MHz.
+
+--- page 2 ---
+## Pin Description
+
+Pad 1: VCC (supply, 3.3V nominal, 3.0-3.6V absolute range)
+Pad 2: GND (ground reference)
+Pad 4: SPI_CLK (SPI clock output, push-pull, max 50 MHz)
+
+## Electrical Characteristics
+
+Recommended PCB clearance around SPI_CLK and other high-speed digital pads
+is at least the board's standard clearance class; reduced clearance near
+the SPI_CLK pad increases coupling to adjacent nets and can cause clock
+edge distortion at frequencies above 20 MHz.
+
+--- page 3 ---
+## Layout Recommendations
+
+Keep SPI_CLK trace width consistent with the qualified stackup impedance
+target. Avoid necking down the SPI_CLK trace near component pads, as
+narrow segments increase series resistance and can shift rise/fall times
+enough to violate SPI timing margins at the maximum rated clock speed.

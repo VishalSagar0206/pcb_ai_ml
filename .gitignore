@@ -1,0 +1,39 @@
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# --- Environment / secrets ---
+.env
+*.env.local
+
+# --- Project data (potentially sensitive PCB/engineering docs) ---
+data/knowledge/*
+!data/knowledge/.gitkeep
+data/datasheets/*
+!data/datasheets/.gitkeep
+data/pcb_uploads/*
+!data/pcb_uploads/.gitkeep
+
+# --- Results / experiment outputs ---
+results/*
+!results/.gitkeep
+
+# --- Frontend (Node/Vite) ---
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,103 @@
+{
+  "$schema": "https://schemas.kicad.org/drc.v1.json",
+  "coordinate_units": "mm",
+  "kicad_version": "8.0.5 (fixture, not live)",
+  "source": "large_board.kicad_pcb",
+  "violations": [
+    {
+      "type": "clearance",
+      "severity": "error",
+      "description": "Clearance violation (netclass 'Default' clearance 0.2000mm; actual 0.0700mm) between R21 pad 1 and R22 pad 1",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Pad 1 of R21",
+          "pos": {
+            "x": 149.25,
+            "y": 20.0
+          },
+          "uuid": "r21-p1"
+        },
+        {
+          "description": "Pad 1 of R22",
+          "pos": {
+            "x": 149.5,
+            "y": 20.0
+          },
+          "uuid": "r22-p1"
+        }
+      ]
+    },
+    {
+      "type": "silk_overlap",
+      "severity": "warning",
+      "description": "Silkscreen overlap between reference text of U2 and U3",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Reference of U2",
+          "pos": {
+            "x": 37.0,
+            "y": 13.0
+          },
+          "uuid": "u2-uuid"
+        },
+        {
+          "description": "Reference of U3",
+          "pos": {
+            "x": 59.0,
+            "y": 13.0
+          },
+          "uuid": "u3-uuid"
+        }
+      ]
+    },
+    {
+      "type": "hole_clearance",
+      "severity": "warning",
+      "description": "Hole-to-hole clearance violation (min 0.5000mm; actual 0.3200mm) near U4",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Pad 1 of U4",
+          "pos": {
+            "x": 103.0,
+            "y": 13.8
+          },
+          "uuid": "u4-p1"
+        }
+      ]
+    },
+    {
+      "type": "lib_footprint_mismatch",
+      "severity": "warning",
+      "description": "Footprint library mismatch: L3 footprint differs from library definition",
+      "excluded": false,
+      "items": [
+        {
+          "description": "Footprint of L3",
+          "pos": {
+            "x": 59.0,
+            "y": 51.0
+          },
+          "uuid": "l3-uuid"
+        }
+      ]
+    }
+  ],
+  "unconnected_items": [
+    {
+      "description": "Unconnected items: net NET_D4 has an unrouted pad",
+      "items": [
+        {
+          "description": "Pad 1 of D4",
+          "pos": {
+            "x": 125.0,
+            "y": 51.0
+          },
+          "uuid": "d4-p1"
+        }
+      ]
+    }
+  ]
+}

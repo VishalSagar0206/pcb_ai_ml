@@ -1,0 +1,75 @@
+[
+  {
+    "board_id": "sample_board",
+    "violation_id": "drc-0",
+    "violation_type": "clearance",
+    "drc_ground_truth": {
+      "rule_type": "clearance",
+      "required_value": 0.2,
+      "actual_value": 0.09,
+      "unit": "mm"
+    },
+    "pcb_context": {"components": ["U3", "R8"], "net": "SPI_CLK"},
+    "engineering_context": [],
+    "expert_root_cause": "U3 and R8 footprints were placed too close together during layout, so pads 4 and 1 on the shared SPI_CLK net violate the 0.20mm Default netclass clearance rule.",
+    "expert_impact": "Increases risk of solder bridging during reflow and raises coupling/crosstalk risk on the SPI_CLK signal, which can cause intermittent communication errors at higher clock rates.",
+    "expert_recommendation": "Increase spacing between U3 and R8 (reposition components or adjust footprints) to restore at least 0.20mm pad-to-pad clearance; re-run DRC to confirm.",
+    "severity_ground_truth": "high",
+    "requires_human_review": true,
+    "manually_verified": true
+  },
+  {
+    "board_id": "sample_board",
+    "violation_id": "drc-1",
+    "violation_type": "track_width",
+    "drc_ground_truth": {
+      "rule_type": "track_width",
+      "required_value": 0.15,
+      "actual_value": 0.12,
+      "unit": "mm"
+    },
+    "pcb_context": {"net": "SPI_CLK", "track": "trk-clk-1"},
+    "engineering_context": [],
+    "expert_root_cause": "The SPI_CLK track segment near U3 was routed narrower (0.12mm) than the minimum qualified track width (0.15mm) for this stackup, likely due to manual routing in a tight area.",
+    "expert_impact": "Narrow traces are harder to reliably fabricate and can shift characteristic impedance for the high-speed SPI clock signal, risking signal integrity issues.",
+    "expert_recommendation": "Widen the SPI_CLK track segment to at least 0.15mm, rerouting around the tight area between U3 and R8 if necessary.",
+    "severity_ground_truth": "medium",
+    "requires_human_review": true,
+    "manually_verified": true
+  },
+  {
+    "board_id": "sample_board",
+    "violation_id": "drc-2",
+    "violation_type": "silkscreen_overlap",
+    "drc_ground_truth": {
+      "rule_type": "silk_edge_clearance",
+      "required_value": 0.15,
+      "actual_value": 0.05,
+      "unit": "mm"
+    },
+    "pcb_context": {"components": ["U3"]},
+    "engineering_context": [],
+    "expert_root_cause": "U3's fabrication/silkscreen text was placed too close to the board edge (Edge.Cuts), violating the 0.15mm silkscreen-to-edge clearance guideline.",
+    "expert_impact": "Cosmetic/manufacturability issue only: text may be clipped during panel depaneling and become illegible; no direct electrical risk.",
+    "expert_recommendation": "Move the U3 reference/fabrication text further from the board edge, or reduce text size, to restore the 0.15mm clearance.",
+    "severity_ground_truth": "low",
+    "requires_human_review": true,
+    "manually_verified": true
+  },
+  {
+    "board_id": "sample_board",
+    "violation_id": "drc-unconnected-0",
+    "violation_type": "unconnected_items",
+    "drc_ground_truth": {
+      "rule_type": "unconnected_items"
+    },
+    "pcb_context": {"net": "SPI_MISO", "pads": ["R8:2", "R9:1"]},
+    "engineering_context": [],
+    "expert_root_cause": "The SPI_MISO net has two pads (R8 pad 2, R9 pad 1) assigned to the same net but no copper track has been routed between them yet -- the net is incomplete.",
+    "expert_impact": "The SPI_MISO signal path is not physically connected; the board will not function correctly until this net is routed.",
+    "expert_recommendation": "Route a track connecting R8 pad 2 and R9 pad 1 on the SPI_MISO net before fabrication.",
+    "severity_ground_truth": "high",
+    "requires_human_review": true,
+    "manually_verified": true
+  }
+]
