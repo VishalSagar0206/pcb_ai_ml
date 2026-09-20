@@ -124,14 +124,12 @@ docker compose down                                    # tear down when finished
 
 The whole point of `CAF_MODEL_PROVIDER=gemini` (see DEVELOPMENT.md) is that
 a teammate/friend can test the **entire** project end-to-end with nothing
-but Docker and a free Gemini key -- no Python/Node install, no access to
-this project's own Nemotron credentials. The message to send them is
-literally:
+but a Gemini key -- no access to this project's own Nemotron credentials.
+If Docker works on their machine, the message to send them is literally:
 
 > 1. Install Docker Desktop.
 > 2. Clone/copy this repo.
-> 3. Get a free Gemini API key at https://aistudio.google.com/apikey
->    (no credit card needed).
+> 3. Get a Gemini API key at https://aistudio.google.com/apikey.
 > 4. `copy .env.example .env`, then edit two lines in `.env`:
 >    `CAF_MODEL_PROVIDER=gemini` and `GEMINI_API_KEY=<their key>`.
 > 5. `docker compose up --build`
@@ -147,6 +145,13 @@ literally:
 >    https://ai.google.dev/gemini-api/docs/rate-limits. On a **paid/billed**
 >    key this isn't a concern (much higher limits) -- no special pacing
 >    needed.
+
+**If Docker isn't available on their machine** (confirmed to happen --
+e.g. Docker Desktop failing to start, virtualization disabled in BIOS,
+Windows Home edition without WSL2 set up, corporate policy blocking it),
+skip step 1/5 above entirely and instead have them run `start.bat` (see
+section 3.3 below) -- it's the same end result, just via a native Python
+venv + Node install instead of containers.
 
 To verify this flow yourself before sending it to anyone, in a **separate**
 `.env` (or by temporarily setting these two lines in the real one) run:
@@ -184,6 +189,71 @@ fabricates):
   testing. If your friend's key still hits quota limits on flash-lite,
   that's a Gemini account/region-specific free-tier limit, not something
   this project controls -- see the links above.
+
+### 3.3 Windows startup without Docker
+
+If Docker isn't available (or won't run) on someone's Windows machine,
+`start.bat` (repo root) is a native alternative that does everything
+`docker compose up --build` does, just without containers:
+
+```powershell
+start.bat   # double-click in File Explorer, or run from a terminal
+```
+
+What it does, in order (implemented in `scripts\windows\start.ps1`, which
+`start.bat` just invokes with `-ExecutionPolicy Bypass` so it works even
+if the machine's default PowerShell execution policy would otherwise
+block scripts):
+
+1. Checks for Python 3.10+ and Node.js on `PATH`; if either is missing,
+   prints a link to install it and exits (no partial/confusing state).
+2. Creates `.venv` if it doesn't exist yet.
+3. Installs backend dependencies (`pip install -e ".[dev]"`) -- skipped
+   on repeat runs if `pyproject.toml` hasn't changed since the last
+   install (tracked via a hash marker in `.venv\.pcb_ai_deps.hash`).
+4. If `.env` doesn't exist, creates it from `.env.example`, presets
+   `CAF_MODEL_PROVIDER=gemini` (since this is the flow aimed at someone
+   testing with their own Gemini key, not this project's own gateway),
+   opens Notepad on it, and waits for confirmation that `GEMINI_API_KEY`
+   was filled in before continuing. Leaves an existing `.env` untouched.
+5. Installs frontend dependencies (`npm install`) -- likewise skipped on
+   repeat runs via a hash marker (`frontend\.npm_install.hash`) unless
+   `package-lock.json` changed.
+6. Starts the backend (`uvicorn` on `http://127.0.0.1:8931`) and frontend
+   (`npm run dev` on `http://localhost:5173`), **each in its own visible
+   console window** (not hidden/backgrounded) so errors are immediately
+   visible without having to go find a log file -- output is also
+   `Tee-Object`-ed to `results\backend.log` / `results\frontend.log` for
+   later reference. Before starting either, it checks whether something
+   is already responding on that port/health-endpoint and skips spawning
+   a duplicate if so -- **safe to run `start.bat` repeatedly**.
+7. Opens `http://localhost:5173` in the default browser once both are up.
+
+```powershell
+stop.bat   # finds whatever is listening on ports 8931/5173 and stops it
+```
+
+`stop.ps1` intentionally finds processes **by port**, not by remembered
+PIDs -- this means it works correctly even if a console window was closed
+abruptly, or if `start.bat` was run in a previous, now-closed terminal
+session.
+
+**This was tested live, end-to-end, not just written**: a cold run (fresh
+dependency install), a warm re-run (confirmed every step correctly
+prints "already up to date / already running -- skipping" and does not
+spawn duplicate processes), a full app load in the browser, and `stop.bat`
+correctly terminating both the backend and frontend processes.
+
+Known rough edges:
+- First run needs internet access (to download Python/npm packages), same
+  as the Docker path's image build.
+- If a corporate machine has Node.js installed via the Microsoft Store as
+  an app-execution-alias stub (rather than a real install), `node`/`npm`
+  may appear present but not actually work -- install the real LTS build
+  from https://nodejs.org/ if `start.bat` reports Node.js is missing even
+  though something named `node` seems to exist.
+- KiCad is not required (same reasoning as the Docker path) -- the bundled
+  sample boards use recorded DRC fixtures.
 
 ## 4. Manual / visual QA checklist
 

@@ -101,6 +101,30 @@ docker compose down          # stop and remove the containers
 docker compose logs -f       # follow both services' logs
 ```
 
+## Windows startup without Docker
+
+If Docker isn't available (or won't run) on a Windows machine, `start.bat`
+is a one-command alternative that sets up and runs everything natively:
+
+```powershell
+start.bat
+```
+
+Double-click it in File Explorer, or run it from a terminal. It checks for
+Python 3.10+ and Node.js, creates a virtual environment, installs backend
+and frontend dependencies (only on first run), walks you through creating
+`.env` with a Gemini API key if one doesn't exist yet, then starts the
+backend and frontend each in their own console window and opens the app in
+your browser. Safe to run again any time -- it skips work that's already
+done and won't start a duplicate server if one's already running.
+
+```powershell
+stop.bat   # stops both servers
+```
+
+See TESTING_GUIDE.md's "Windows startup without Docker" section for full
+details and troubleshooting.
+
 ## CLI commands
 
 | Command | Purpose |
